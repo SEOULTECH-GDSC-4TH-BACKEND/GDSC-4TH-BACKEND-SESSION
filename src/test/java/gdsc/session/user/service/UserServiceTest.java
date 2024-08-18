@@ -48,12 +48,13 @@ class UserServiceTest {
         assertEquals("nmkk1234@naver.com", user.getEmail());
         assertNotNull(user.getPassword());
         assertNotEquals("1234", user.getPassword());
-        assertEquals("호돌맨", user.getUsername());
+        assertEquals("kim", user.getUsername());
     }
 
     @Test
     @DisplayName("회원가입시 중복된 이메일")
     void test2() {
+
         // given
         User user = User.builder()
                 .email("nmkk1234@naver.com")
@@ -63,6 +64,7 @@ class UserServiceTest {
 
         userRepository.save(user);
 
+        // when
         SignupRequest signup = SignupRequest.builder()
                 .email("nmkk1234@naver.com")
                 .password1("1234")
