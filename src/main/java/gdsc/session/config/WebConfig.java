@@ -14,4 +14,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/user/login", "/api/user/signup");
     }
+
+    //TODO: cors 설정 추가
 }
