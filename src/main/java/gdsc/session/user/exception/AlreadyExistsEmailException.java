@@ -6,7 +6,6 @@ public class AlreadyExistsEmailException extends UserException {
     public AlreadyExistsEmailException() {
         super(MESSAGE);
     }
-
     @Override
     public int getStatusCode() {
         return 400;
