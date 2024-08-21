@@ -1,6 +1,7 @@
 package gdsc.session.user.controller;
 
 
+import gdsc.session.config.argumentresolver.Login;
 import gdsc.session.config.interceptor.LoginCheckInterceptor;
 import gdsc.session.util.SessionConst;
 import gdsc.session.user.service.UserService;
@@ -43,9 +44,9 @@ public class UserController {
 
     // 사용자의 유저 아이디 확인
     @PostMapping("/test")
-    public String test(@RequestAttribute(SessionConst.REQUEST_USER_ID) Long requestUserId) {
+    public String test(@Login User loginUser) {
         log.info("test");
-        log.info("requestUserId : {}", requestUserId);
+        log.info("loginUser : {}", loginUser.getId());
         return "ok";
     }
 }

@@ -57,9 +57,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
 
         // 질문 수정,삭제 기능 구현시에 질문 작성자와 요청 보낸 사용자가 같은지 판단하기 위해 컨트롤러로 유저 아이디를 넘겨줌.
-        User user = (User)serverSession.getAttribute(SessionConst.LOGIN_MEMBER);
-        Long id = user.getId();
-        request.setAttribute(SessionConst.REQUEST_USER_ID,id);
+        // 삭제 -> ArgumentResolver 사용
+        //User user = (User)serverSession.getAttribute(SessionConst.LOGIN_MEMBER);
+        //Long id = user.getId();
+        //request.setAttribute(SessionConst.REQUEST_USER_ID,id);
         return true;
     }
 
