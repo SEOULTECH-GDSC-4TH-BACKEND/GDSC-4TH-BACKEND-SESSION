@@ -1,6 +1,7 @@
 package gdsc.session.user.service;
 
 
+import gdsc.session.user.dto.UserInfo;
 import gdsc.session.util.PasswordEncoder;
 import gdsc.session.user.domain.User;
 import gdsc.session.user.dto.LoginRequest;
@@ -48,7 +49,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User login(LoginRequest loginRequest) {
+    public UserInfo login(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(UserNotFound::new);
 
@@ -58,7 +59,12 @@ public class UserService {
             throw new PasswordNotMatchException();
         }
 
-        return user;
+        return UserInfo.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .username(user.getUsername())
+                .build();
     }
 
     private String getEncryptedPassword(String email, String password) {

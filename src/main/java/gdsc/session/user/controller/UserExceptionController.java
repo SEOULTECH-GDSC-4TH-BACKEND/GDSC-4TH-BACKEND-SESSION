@@ -30,7 +30,7 @@ public class UserExceptionController {
                 .get();
 
         return ErrorResponse.builder()
-                .code("400")
+                .code(HttpStatus.BAD_REQUEST)
                 .message(defaultMessage)
                 .build();
     }
@@ -41,7 +41,7 @@ public class UserExceptionController {
         HttpStatus statusCode = e.getStatusCode();
 
         ErrorResponse body = ErrorResponse.builder()
-                .code(String.valueOf(statusCode))
+                .code(statusCode)
                 .message(e.getMessage())
                 .build();
 
@@ -54,11 +54,11 @@ public class UserExceptionController {
     public ResponseEntity<ErrorResponse> exception(Exception e) {
 
         ErrorResponse body = ErrorResponse.builder()
-                .code("500")
+                .code(HttpStatus.INTERNAL_SERVER_ERROR)
                 .message(e.getMessage())
                 .build();
 
-        return ResponseEntity.status(500)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(body);
     }
 }

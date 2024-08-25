@@ -1,6 +1,7 @@
 package gdsc.session.config.argumentresolver;
 
 import gdsc.session.user.domain.User;
+import gdsc.session.user.dto.UserInfo;
 import gdsc.session.util.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasMemberType = User.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasMemberType = UserInfo.class.isAssignableFrom(parameter.getParameterType());
         return hasLoginAnnotation && hasMemberType;
     }
 
