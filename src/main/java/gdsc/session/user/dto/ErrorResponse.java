@@ -3,6 +3,7 @@ package gdsc.session.user.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +18,11 @@ import java.util.Map;
 @Getter
 public class ErrorResponse {
 
-    private final String code;
+    private final HttpStatus code;
     private final String message;
 
     @Builder
-    public ErrorResponse(String code, String message) {
+    public ErrorResponse(HttpStatus code, String message) {
         this.code = code;
         this.message = message;
     }

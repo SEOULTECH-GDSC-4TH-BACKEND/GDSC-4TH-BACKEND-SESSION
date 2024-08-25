@@ -1,5 +1,7 @@
 package gdsc.session.user.exception;
 
+import org.springframework.http.HttpStatus;
+
 public class UserNotFound extends UserException {
     private static final String MESSAGE = "사용자를 찾을 수 없습니다.";
 
@@ -8,7 +10,7 @@ public class UserNotFound extends UserException {
     }
 
     @Override
-    public int getStatusCode() {
-        return 404;
+    public HttpStatus getStatusCode() {
+        return HttpStatus.NOT_FOUND;
     }
 }

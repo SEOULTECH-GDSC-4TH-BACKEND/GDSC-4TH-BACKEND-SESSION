@@ -19,6 +19,9 @@ public class UserExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse invalidRequestHandler(MethodArgumentNotValidException e) {
+
+        // DTO에서 작성 오류 메세지가 defaultMessage에 저장된다.
+        // 하나만 지정했으므로 첫번째 값을 가져오면 된다.
         String defaultMessage = e.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -34,8 +37,8 @@ public class UserExceptionController {
 
     @ResponseBody
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorResponse> UserException(UserException e) {
-        int statusCode = e.getStatusCode();
+    public ResponseEntity<ErrorResponse> userException(UserException e) {
+        HttpStatus statusCode = e.getStatusCode();
 
         ErrorResponse body = ErrorResponse.builder()
                 .code(String.valueOf(statusCode))

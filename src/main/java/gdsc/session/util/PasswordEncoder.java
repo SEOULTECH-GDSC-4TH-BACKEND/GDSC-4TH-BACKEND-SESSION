@@ -27,6 +27,8 @@ public class PasswordEncoder {
         }
     }
 
+    // 비밀번호가 같은 사용자끼리 암호화한 값이 같으므로 이메일을 이용해 솔트값 생성
+    // 사용자별로 암호화된 비밀번호 값이 다르다
     private byte[] getSalt(String email)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
