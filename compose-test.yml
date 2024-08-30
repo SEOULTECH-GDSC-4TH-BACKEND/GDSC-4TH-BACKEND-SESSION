@@ -1,0 +1,12 @@
+services:
+  spring:
+    image: nmkk1234/session:spring
+    depends_on:
+      mysql :
+        condition: service_healthy
+  mysql:
+    image: nmkk1234/session:mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping" ]
+      interval: 5s
+      retries: 10
