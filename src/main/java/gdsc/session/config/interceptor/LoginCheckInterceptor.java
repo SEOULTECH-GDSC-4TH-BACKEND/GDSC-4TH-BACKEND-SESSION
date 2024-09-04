@@ -9,10 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -21,6 +23,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+
+        // Preflight 요청은 바로 통과시킴
+        if (HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
         // 서버에 저장된 세션 가져오기
         // false는 세션이 없을 경우 생성하지 않음
         // 세션 유효기간 만료시 자동 삭제되며 null값이 반환됨.

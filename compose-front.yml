@@ -1,0 +1,22 @@
+services:
+  spring:
+    image: nmkk1234/session:spring
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+
+  mysql:
+    image: nmkk1234/session:mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 5s
+      retries: 10
+    ports:
+      - 3306:3306
+
+  react:
+    image: yundol/session:web
+    ports:
+      - 3000:3000
