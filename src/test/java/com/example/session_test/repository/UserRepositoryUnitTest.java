@@ -4,6 +4,7 @@ package com.example.session_test.repository;
 import com.example.session_test.user.domain.User;
 import com.example.session_test.user.repository.UserRepository;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,8 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryUnitTest {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
 
     private static User user;
 
@@ -31,6 +31,11 @@ public class UserRepositoryUnitTest {
                 .password("1234")
                 .username("kim")
                 .build();
+    }
+
+    @AfterEach
+    void clean() {
+        userRepository.deleteAll();
     }
 
     @Test

@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
@@ -24,18 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceUnitTest {
-
-    @Mock
-    UserRepository userRepository;
-
-    @Mock
-    PasswordEncoder passwordEncoder;
-
-    @InjectMocks
-    UserService userService;
+    @Mock UserRepository userRepository;
+    @Mock PasswordEncoder passwordEncoder;
+    @InjectMocks UserService userService;
 
     @Test
     @DisplayName("회원가입 성공")
@@ -48,9 +44,7 @@ public class UserServiceUnitTest {
                 .password2("123")
                 .build();
 
-        userService.signup(signupRequest);
-
-        // Expected
+        // Expected(when+then)
         Assertions.assertDoesNotThrow(() -> userService.signup(signupRequest));
     }
 
@@ -62,15 +56,16 @@ public class UserServiceUnitTest {
                 .username("kim")
                 .password("123")
                 .build();
-        given(userRepository.findByEmail(anyString())).willReturn(Optional.of(user));
-        given(passwordEncoder.encode(anyString(),anyString())).willReturn(user.getPassword());
 
         // when
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
+        when(passwordEncoder.encode(anyString(),anyString())).thenReturn(user.getPassword());
         LoginRequest loginRequest = LoginRequest.builder()
                 .email("nmkk1234@naver.com")
                 .password("123")
                 .build();
         UserInfo userInfo = userService.login(loginRequest);
+
         // then
         assertNotNull(userInfo);
         assertEquals(userInfo.getEmail(), loginRequest.getEmail());
