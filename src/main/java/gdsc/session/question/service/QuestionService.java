@@ -18,14 +18,14 @@ public class QuestionService {
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
     private final QuestionQueryRepository queryRepository;
-    private static int PAGE_SIZE;
 
     public Slice<QuestionResponse> getQuestionPage(final Pageable pageable) {
         return this.queryRepository.questionResponses(pageable);
     }
 
     public QuestionResponse getQuestion(Long questionId) {
-        Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Cannot find question."));
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("Cannot find question."));
         return QuestionResponse.builder()
                         .subject(question.getSubject())
                         .content(question.getContent())
@@ -38,8 +38,8 @@ public class QuestionService {
             UserInfo userInfo,
             QuestionRequest questionRequest
     ) {
-        User author = userRepository.findById(userInfo.getId()).orElseThrow(() ->
-                new RuntimeException("Cannot find author."));
+        User author = userRepository.findById(userInfo.getId())
+                .orElseThrow(() -> new RuntimeException("Cannot find author."));
         Question question = new Question(questionRequest.subject(), questionRequest.content(), author);
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion.getId();
@@ -49,9 +49,10 @@ public class QuestionService {
             UserInfo userInfo,
             QuestionRequest questionRequest, Long questionId
     ) {
-        User author = userRepository.findById(userInfo.getId()).orElseThrow(() ->
-                new RuntimeException("Cannot find author."));
-        Question question = questionRepository.findById(questionId).orElseThrow(() -> new RuntimeException("Cannot find question."));
+        User author = userRepository.findById(userInfo.getId())
+                .orElseThrow(() -> new RuntimeException("Cannot find author."));
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("Cannot find question."));
         question.update(questionRequest.subject(), questionRequest.content());
         questionRepository.save(question);
         return question.getId();
@@ -61,8 +62,8 @@ public class QuestionService {
             UserInfo userInfo,
             Long questionId
     ) {
-        User author = userRepository.findById(userInfo.getId()).orElseThrow(() ->
-                new RuntimeException("Cannot find author."));
+        User author = userRepository.findById(userInfo.getId())
+                .orElseThrow(() -> new RuntimeException("Cannot find author."));
         return questionRepository.findById(questionId)
                 .map(question -> {
                     questionRepository.delete(question);
