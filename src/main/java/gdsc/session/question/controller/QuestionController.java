@@ -1,6 +1,6 @@
 package gdsc.session.question.controller;
 
-import gdsc.session.config.argumentresolver.Login;
+import gdsc.session.global.config.argumentresolver.Login;
 import gdsc.session.question.dto.QuestionRequest;
 import gdsc.session.question.dto.QuestionResponse;
 import gdsc.session.question.service.QuestionService;

@@ -2,7 +2,7 @@ package gdsc.session.answer.controller;
 
 import gdsc.session.answer.dto.AnswerRequest;
 import gdsc.session.answer.service.AnswerService;
-import gdsc.session.config.argumentresolver.Login;
+import gdsc.session.global.config.argumentresolver.Login;
 import gdsc.session.user.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

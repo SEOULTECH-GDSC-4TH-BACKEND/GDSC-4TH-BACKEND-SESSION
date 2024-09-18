@@ -1,19 +1,16 @@
 package gdsc.session.user.controller;
 
 
-import gdsc.session.config.argumentresolver.Login;
-import gdsc.session.config.interceptor.LoginCheckInterceptor;
+import gdsc.session.global.config.argumentresolver.Login;
 import gdsc.session.user.dto.UserInfo;
 import gdsc.session.util.SessionConst;
 import gdsc.session.user.service.UserService;
-import gdsc.session.user.domain.User;
 import gdsc.session.user.dto.LoginRequest;
 import gdsc.session.user.dto.SignupRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

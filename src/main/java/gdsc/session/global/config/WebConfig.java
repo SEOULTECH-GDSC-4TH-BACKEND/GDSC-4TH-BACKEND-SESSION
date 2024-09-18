@@ -1,7 +1,7 @@
-package gdsc.session.config;
+package gdsc.session.global.config;
 
-import gdsc.session.config.argumentresolver.LoginUserArgumentResolver;
-import gdsc.session.config.interceptor.LoginCheckInterceptor;
+import gdsc.session.global.config.argumentresolver.LoginUserArgumentResolver;
+import gdsc.session.global.config.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
