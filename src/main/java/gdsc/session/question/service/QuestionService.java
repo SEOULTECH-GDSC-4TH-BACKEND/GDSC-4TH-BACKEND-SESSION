@@ -1,5 +1,7 @@
 package gdsc.session.question.service;
 
+import gdsc.session.answer.domain.Answer;
+import gdsc.session.answer.dto.AnswerResponse;
 import gdsc.session.global.exception.BusinessException;
 import gdsc.session.global.exception.ErrorCode;
 import gdsc.session.question.domain.Question;
@@ -13,6 +15,8 @@ import gdsc.session.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +32,17 @@ public class QuestionService {
     public QuestionResponse getQuestion(Long questionId) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+
+        List<Answer> answers = question.getAnswers();
+        List<AnswerResponse> answerResponses = AnswerResponse.toResponses(answers);
+
         return QuestionResponse.builder()
-                        .subject(question.getSubject())
-                        .content(question.getContent())
-                        .authorId(question.getAuthor().getId())
-                        .author(question.getAuthor().getUsername())
-                        .build();
+                .subject(question.getSubject())
+                .content(question.getContent())
+                .authorId(question.getAuthor().getId())
+                .author(question.getAuthor().getUsername())
+                .answers(answerResponses)
+                .build();
     }
 
     public Long saveQuestion(

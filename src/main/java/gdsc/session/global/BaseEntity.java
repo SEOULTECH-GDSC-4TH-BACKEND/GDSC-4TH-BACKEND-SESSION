@@ -8,24 +8,23 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @MappedSuperclass
 @Getter
 public class BaseEntity {
     @CreatedDate
-    private String createDate;
+    private LocalDateTime createDate;
 
     @LastModifiedDate
-    private String modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @PrePersist
     public void onPrePersist() {
-        this.createDate = LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+        this.createDate = LocalDateTime.now();
     }
 
     @PreUpdate
     public void onPreUpdate() {
-        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE);
+        this.modifiedDate = LocalDateTime.now();
     }
 }
