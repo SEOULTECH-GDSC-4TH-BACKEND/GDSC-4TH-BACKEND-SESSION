@@ -1,14 +1,10 @@
 package gdsc.session.answer.domain;
 
-import gdsc.session.BaseEntity;
+import gdsc.session.global.BaseEntity;
 import gdsc.session.question.domain.Question;
 import gdsc.session.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
@@ -27,12 +23,18 @@ public class Answer extends BaseEntity {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
+    private Question question;
+
     public Answer(
             String content,
-            User author
+            User author,
+            Question question
     ) {
         this.content = content;
         this.author = author;
+        this.question = question;
     }
 
     public void update(String content) {

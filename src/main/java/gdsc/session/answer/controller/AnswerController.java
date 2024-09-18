@@ -5,7 +5,6 @@ import gdsc.session.answer.service.AnswerService;
 import gdsc.session.config.argumentresolver.Login;
 import gdsc.session.user.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
