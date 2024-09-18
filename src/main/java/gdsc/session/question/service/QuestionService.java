@@ -1,5 +1,7 @@
 package gdsc.session.question.service;
 
+import gdsc.session.global.exception.BusinessException;
+import gdsc.session.global.exception.ErrorCode;
 import gdsc.session.question.domain.Question;
 import gdsc.session.question.dto.QuestionRequest;
 import gdsc.session.question.dto.QuestionResponse;
@@ -25,7 +27,7 @@ public class QuestionService {
 
     public QuestionResponse getQuestion(Long questionId) {
         Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new RuntimeException("Cannot find question."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         return QuestionResponse.builder()
                         .subject(question.getSubject())
                         .content(question.getContent())
@@ -39,7 +41,7 @@ public class QuestionService {
             QuestionRequest questionRequest
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new RuntimeException("Cannot find author."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         Question question = new Question(questionRequest.subject(), questionRequest.content(), author);
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion.getId();
@@ -50,9 +52,9 @@ public class QuestionService {
             QuestionRequest questionRequest, Long questionId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new RuntimeException("Cannot find author."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new RuntimeException("Cannot find question."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_QUESTION_EXCEPTION));
         question.update(questionRequest.subject(), questionRequest.content());
         questionRepository.save(question);
         return question.getId();
@@ -63,12 +65,12 @@ public class QuestionService {
             Long questionId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new RuntimeException("Cannot find author."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         return questionRepository.findById(questionId)
                 .map(question -> {
                     questionRepository.delete(question);
                     return question.getId();
                 })
-                .orElseThrow(() -> new RuntimeException("Cannot find question."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_QUESTION_EXCEPTION));
     }
 }

@@ -6,14 +6,12 @@ import gdsc.session.question.dto.QuestionResponse;
 import gdsc.session.question.service.QuestionService;
 import gdsc.session.user.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
