@@ -7,6 +7,7 @@ import gdsc.session.global.exception.ErrorCode;
 import gdsc.session.question.domain.Question;
 import gdsc.session.question.dto.QuestionRequest;
 import gdsc.session.question.dto.QuestionResponse;
+import gdsc.session.question.dto.SearchDto;
 import gdsc.session.question.repository.QuestionQueryRepository;
 import gdsc.session.question.repository.QuestionRepository;
 import gdsc.session.user.domain.User;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +27,12 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final QuestionQueryRepository queryRepository;
 
-    public Slice<QuestionResponse> getQuestionPage(final Pageable pageable) {
-        return this.queryRepository.questionResponses(pageable);
+    public Slice<QuestionResponse> getQuestionPage(Pageable pageable, SearchDto searchDto) {
+        if (Objects.isNull(searchDto.subject())) {
+            return queryRepository.getQuestionResponses(pageable);
+        } else {
+            return queryRepository.getQuestionResponses(pageable, searchDto);
+        }
     }
 
     public QuestionResponse getQuestion(Long questionId) {

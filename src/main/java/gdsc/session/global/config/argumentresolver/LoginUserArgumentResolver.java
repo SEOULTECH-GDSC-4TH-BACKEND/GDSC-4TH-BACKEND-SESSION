@@ -1,6 +1,5 @@
-package gdsc.session.config.argumentresolver;
+package gdsc.session.global.config.argumentresolver;
 
-import gdsc.session.user.domain.User;
 import gdsc.session.user.dto.UserInfo;
 import gdsc.session.util.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;

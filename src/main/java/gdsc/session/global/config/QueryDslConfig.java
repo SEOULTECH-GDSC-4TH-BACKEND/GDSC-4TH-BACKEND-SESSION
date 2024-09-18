@@ -1,4 +1,4 @@
-package gdsc.session.global;
+package gdsc.session.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

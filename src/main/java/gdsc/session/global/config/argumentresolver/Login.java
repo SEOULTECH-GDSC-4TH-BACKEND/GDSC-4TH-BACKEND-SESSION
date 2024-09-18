@@ -1,4 +1,4 @@
-package gdsc.session.config.argumentresolver;
+package gdsc.session.global.config.argumentresolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

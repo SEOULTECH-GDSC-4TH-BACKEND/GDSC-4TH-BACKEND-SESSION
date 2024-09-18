@@ -1,4 +1,4 @@
-package gdsc.session.config.interceptor;
+package gdsc.session.global.config.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gdsc.session.util.SessionConst;
