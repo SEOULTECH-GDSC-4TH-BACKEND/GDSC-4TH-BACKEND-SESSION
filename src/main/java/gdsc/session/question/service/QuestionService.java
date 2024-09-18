@@ -16,6 +16,7 @@ import gdsc.session.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final QuestionQueryRepository queryRepository;
 
+    @Transactional
     public Slice<QuestionResponse> getQuestionPage(Pageable pageable, SearchDto searchDto) {
         if (Objects.isNull(searchDto.subject())) {
             return queryRepository.getQuestionResponses(pageable);
@@ -48,6 +50,7 @@ public class QuestionService {
                 .authorId(question.getAuthor().getId())
                 .author(question.getAuthor().getUsername())
                 .answers(answerResponses)
+                .modifiedDate(question.getModifiedDate())
                 .build();
     }
 
