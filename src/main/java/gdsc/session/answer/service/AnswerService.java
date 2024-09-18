@@ -3,6 +3,8 @@ package gdsc.session.answer.service;
 import gdsc.session.answer.domain.Answer;
 import gdsc.session.answer.dto.AnswerRequest;
 import gdsc.session.answer.repository.AnswerRepository;
+import gdsc.session.global.exception.BusinessException;
+import gdsc.session.global.exception.ErrorCode;
 import gdsc.session.question.domain.Question;
 import gdsc.session.question.repository.QuestionRepository;
 import gdsc.session.user.domain.User;
@@ -23,9 +25,9 @@ public class AnswerService {
             AnswerRequest answerRequest
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new RuntimeException("Cannot find author."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         Question question = questionRepository.findById(answerRequest.questionId())
-                .orElseThrow(() -> new RuntimeException("Cannot find question."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_QUESTION_EXCEPTION));
         Answer answer = new Answer(answerRequest.content(), author, question);
         Answer savedAnswer = answerRepository.save(answer);
         question.addAnswer(savedAnswer);
@@ -36,9 +38,10 @@ public class AnswerService {
             UserInfo userInfo,
             AnswerRequest answerRequest, Long answerId
     ) {
-        User author = userRepository.findById(userInfo.getId()).orElseThrow(() ->
-                new RuntimeException("Cannot find author."));
-        Answer answer = answerRepository.findById(answerId).orElseThrow(() -> new RuntimeException("Cannot find answer."));
+        User author = userRepository.findById(userInfo.getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+        Answer answer = answerRepository.findById(answerId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_ANSWER_EXCEPTION));
         answer.update(answerRequest.content());
         return answer.getId();
     }
@@ -47,13 +50,13 @@ public class AnswerService {
             UserInfo userInfo,
             Long answerId
     ) {
-        User author = userRepository.findById(userInfo.getId()).orElseThrow(() ->
-                new RuntimeException("Cannot find author."));
+        User author = userRepository.findById(userInfo.getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
         return answerRepository.findById(answerId)
                 .map(answer -> {
                     answerRepository.delete(answer);
                     return answer.getId();
                 })
-                .orElseThrow(() -> new RuntimeException("Cannot find answer."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_ANSWER_EXCEPTION));
     }
 }
