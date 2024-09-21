@@ -30,17 +30,30 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 
+<<<<<<< HEAD
+=======
+	runtimeOnly 'com.h2database:h2'
+>>>>>>> 71f87963a01f68a21be001be5e87bf5cc7e059bf
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+<<<<<<< HEAD
 	// querydsl
+=======
+	//Querydsl 추가
+>>>>>>> 71f87963a01f68a21be001be5e87bf5cc7e059bf
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+<<<<<<< HEAD
+=======
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+
+>>>>>>> 71f87963a01f68a21be001be5e87bf5cc7e059bf
 }
 
 tasks.named('test') {

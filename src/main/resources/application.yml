@@ -1,23 +1,47 @@
 spring:
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
     hibernate:
+<<<<<<< HEAD
       ddl-auto: update
   datasource:
     url: jdbc:mysql://zippy.cvwwmmaa2kpr.ap-northeast-2.rds.amazonaws.com:3306/saen
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: zippy
     password: zippy1357!
+=======
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+#        show_sql: true
+        format_sql: true
+>>>>>>> 71f87963a01f68a21be001be5e87bf5cc7e059bf
 #  datasource:
-#    url: jdbc:h2:mem:qna;NON_KEYWORDS=USER
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+#    url: jdbc:mysql://mysql:3306/mydb
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: password
+  datasource:
+    url: jdbc:h2:mem:qna;NON_KEYWORDS=USER
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
 server:
   servlet:
     session:
+<<<<<<< HEAD
       tracking-modes: cookie
+=======
+      tracking-modes: cookie
+
+logging.level:
+  org.hibernate.SQL: debug
+  com.zaxxer.hikari: TRACE
+  com.zaxxer.hikari.HikariConfig: DEBUG
+
+
+>>>>>>> 71f87963a01f68a21be001be5e87bf5cc7e059bf

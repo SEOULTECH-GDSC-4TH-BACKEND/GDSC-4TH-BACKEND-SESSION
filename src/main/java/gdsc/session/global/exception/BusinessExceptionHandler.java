@@ -16,7 +16,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import java.util.Objects;
 
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = {"gdsc.session.question","gdsc.session.answer"})
 public class BusinessExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
