@@ -1,4 +1,4 @@
-package com.example.qna_backend.user;
+package com.example.qna_backend.user.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
