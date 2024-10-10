@@ -9,6 +9,8 @@ import com.example.qna_backend.user.exception.PasswordNotMatchException;
 import com.example.qna_backend.user.exception.UserNotFound;
 import com.example.qna_backend.user.repository.UserRepository;
 import com.example.qna_backend.util.PasswordEncoder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +61,13 @@ public class UserService {
 
     private String getEncryptedPassword(String email, String password) {
         return passwordEncoder.encode(email, password);
+    }
+
+    public void logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
     }
 }
 
