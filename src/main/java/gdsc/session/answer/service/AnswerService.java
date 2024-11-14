@@ -25,7 +25,7 @@ public class AnswerService {
             AnswerRequest answerRequest
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         Question question = questionRepository.findById(answerRequest.questionId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_QUESTION_EXCEPTION));
         Answer answer = new Answer(answerRequest.content(), author, question);
@@ -39,7 +39,7 @@ public class AnswerService {
             AnswerRequest answerRequest, Long answerId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         Answer answer = answerRepository.findById(answerId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_ANSWER_EXCEPTION));
         answer.update(answerRequest.content());
@@ -51,7 +51,7 @@ public class AnswerService {
             Long answerId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         return answerRepository.findById(answerId)
                 .map(answer -> {
                     answerRepository.delete(answer);

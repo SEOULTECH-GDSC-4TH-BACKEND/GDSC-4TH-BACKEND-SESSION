@@ -46,7 +46,7 @@ public enum ErrorCode {
     MAX_ANSWERS_EXCEEDED(HttpStatus.BAD_REQUEST, "answer-6", "답변 개수가 초과되었습니다."),
     DUPLICATE_ANSWER(HttpStatus.CONFLICT, "answer-7", "이미 답변을 작성하셨습니다."),
     ANSWER_TO_CLOSED_QUESTION(HttpStatus.BAD_REQUEST, "answer-8", "닫힌 질문에는 답변할 수 없습니다.");
-    
+
 
 
     private final HttpStatus httpStatus;

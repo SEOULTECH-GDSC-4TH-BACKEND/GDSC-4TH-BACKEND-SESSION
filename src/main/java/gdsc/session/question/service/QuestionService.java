@@ -39,7 +39,7 @@ public class QuestionService {
 
     public QuestionResponse getQuestion(Long questionId) {
         Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
 
         List<Answer> answers = question.getAnswers();
         List<AnswerResponse> answerResponses = AnswerResponse.toResponses(answers);
@@ -59,7 +59,7 @@ public class QuestionService {
             QuestionRequest questionRequest
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         Question question = new Question(questionRequest.subject(), questionRequest.content(), author);
         Question savedQuestion = questionRepository.save(question);
         return savedQuestion.getId();
@@ -70,7 +70,7 @@ public class QuestionService {
             QuestionRequest questionRequest, Long questionId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_EXIST_QUESTION_EXCEPTION));
         question.update(questionRequest.subject(), questionRequest.content());
@@ -83,7 +83,7 @@ public class QuestionService {
             Long questionId
     ) {
         User author = userRepository.findById(userInfo.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_RESOURCE_EXCEPTION));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_USER_EXCEPTION));
         return questionRepository.findById(questionId)
                 .map(question -> {
                     questionRepository.delete(question);
