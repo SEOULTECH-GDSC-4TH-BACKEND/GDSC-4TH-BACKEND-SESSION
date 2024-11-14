@@ -11,9 +11,9 @@ public record QuestionResponse(
         String subject,
         String content,
         Long authorId,
-        String author,
-        List<AnswerResponse> answers,
-        LocalDateTime modifiedDate
+        String author
+//        List<AnswerResponse> answers,
+//        LocalDateTime modifiedDate
 ) {
 
 }
