@@ -25,16 +25,28 @@ public enum ErrorCode {
     UNAUTHORIZED_EXCEPTION(HttpStatus.UNAUTHORIZED, "auth-1", "인증되지 않은 사용자입니다."),
 
     /**
-     * resource. code prefix: resource-
+     * Question 관련 에러 코드. prefix: question-
      */
-    FORBIDDEN_EXCEPTION(HttpStatus.FORBIDDEN, "resource-1", "리소스에 접근 권한이 없습니다."),
+    NOT_EXIST_QUESTION_EXCEPTION(HttpStatus.NOT_FOUND, "question-1", "질문이 존재하지 않습니다."),
+    QUESTION_PERMISSION_DENIED(HttpStatus.FORBIDDEN, "question-2", "질문에 대한 권한이 없습니다."),
+    INVALID_QUESTION_CONTENT(HttpStatus.BAD_REQUEST, "question-3", "질문 내용이 올바르지 않습니다."),
+    INVALID_QUESTION_SUBJECT(HttpStatus.BAD_REQUEST, "question-4", "질문 제목이 올바르지 않습니다."),
+    QUESTION_CONTENT_TOO_LONG(HttpStatus.BAD_REQUEST, "question-5", "질문 내용이 너무 깁니다."),
+    QUESTION_SUBJECT_TOO_LONG(HttpStatus.BAD_REQUEST, "question-6", "질문 제목이 너무 깁니다."),
+    QUESTION_ALREADY_DELETED(HttpStatus.BAD_REQUEST, "question-7", "이미 삭제된 질문입니다."),
 
     /**
-     * matching. code prefix: matching-
+     * Answer 관련 에러 코드. prefix: answer-
      */
-
-    NOT_EXIST_QUESTION_EXCEPTION(HttpStatus.NOT_FOUND, "question-1", "질문이 존재하지 않습니다."),
-    NOT_EXIST_ANSWER_EXCEPTION(HttpStatus.NOT_FOUND, "answer-1", "답변이 존재하지 않습니다.");
+    NOT_EXIST_ANSWER_EXCEPTION(HttpStatus.NOT_FOUND, "answer-1", "답변이 존재하지 않습니다."),
+    ANSWER_PERMISSION_DENIED(HttpStatus.FORBIDDEN, "answer-2", "답변에 대한 권한이 없습니다."),
+    INVALID_ANSWER_CONTENT(HttpStatus.BAD_REQUEST, "answer-3", "답변 내용이 올바르지 않습니다."),
+    ANSWER_CONTENT_TOO_LONG(HttpStatus.BAD_REQUEST, "answer-4", "답변 내용이 너무 깁니다."),
+    ANSWER_ALREADY_DELETED(HttpStatus.BAD_REQUEST, "answer-5", "이미 삭제된 답변입니다."),
+    MAX_ANSWERS_EXCEEDED(HttpStatus.BAD_REQUEST, "answer-6", "답변 개수가 초과되었습니다."),
+    DUPLICATE_ANSWER(HttpStatus.CONFLICT, "answer-7", "이미 답변을 작성하셨습니다."),
+    ANSWER_TO_CLOSED_QUESTION(HttpStatus.BAD_REQUEST, "answer-8", "닫힌 질문에는 답변할 수 없습니다.");
+    
 
 
     private final HttpStatus httpStatus;
