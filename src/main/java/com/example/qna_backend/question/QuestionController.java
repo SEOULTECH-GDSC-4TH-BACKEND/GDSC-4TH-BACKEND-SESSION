@@ -3,7 +3,11 @@ package com.example.qna_backend.question;
 import com.example.qna_backend.config.argumentresolver.Login;
 import com.example.qna_backend.user.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,9 +16,15 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionController {
     private final QuestionService questionService;
 
-    // TODO : 페이지
+    @GetMapping
+    public ResponseEntity<Slice<QuestionResponse>> getQuestionPage(
+            @PageableDefault final Pageable pageable,
+            @Validated @ModelAttribute SearchDto searchDto
+    ) {
+        Slice<QuestionResponse> questionPage = questionService.getQuestionPage(pageable, searchDto);
+        return ResponseEntity.ok(questionPage);
+    }
 
-    // 1. 단일 질문 조회
     @GetMapping("/{questionId}")
     public ResponseEntity<QuestionResponse> getQuestion(@PathVariable Long questionId) {
         QuestionResponse response = questionService.getQuestion(questionId);
@@ -22,7 +32,6 @@ public class QuestionController {
     }
 
 
-    // 2. 질문 등록
     @PostMapping
     public ResponseEntity<Long> createQuestion(
             @Login UserInfo userInfo,
@@ -32,8 +41,6 @@ public class QuestionController {
         return ResponseEntity.ok(questionId);
     }
 
-
-    // 3. 질문 수정
     @PatchMapping("/{questionId}")
     public ResponseEntity<Long> modifyQuestion(
             @Login UserInfo userInfo,
@@ -45,7 +52,6 @@ public class QuestionController {
     }
 
 
-    // 4. 질문 삭제
     @DeleteMapping("/{questionId}")
     public ResponseEntity<Long> deleteQuestion(
             @Login UserInfo userInfo,

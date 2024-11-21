@@ -8,18 +8,29 @@ import com.example.qna_backend.user.domain.User;
 import com.example.qna_backend.user.dto.UserInfo;
 import com.example.qna_backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
+    private final QuestionQueryRepository queryRepository;
 
-    // TODO : 페이징
-
+    @Transactional
+    public Slice<QuestionResponse> getQuestionPage(Pageable pageable, SearchDto searchDto) {
+        if (Objects.isNull(searchDto.subject())) {
+            return queryRepository.getQuestionResponses(pageable);
+        } else {
+            return queryRepository.getQuestionResponses(pageable, searchDto);
+        }
+    }
     // 1. 단일 질문 조회
     public QuestionResponse getQuestion(Long questionId) {
         Question question = questionRepository.findById(questionId)
